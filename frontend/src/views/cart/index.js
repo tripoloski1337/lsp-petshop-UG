@@ -17,72 +17,73 @@ import CIcon from '@coreui/icons-react'
 import { DocsLink } from 'src/reusable'
 import "../../assets/css/custom.css"
 
-const Cart = () => {
-  const [collapsed, setCollapsed] = React.useState(true)
-  const [showCard, setShowCard] = React.useState(true)
+import Card from "./cardco";
 
-  return (
-    <>
+class Cart extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: this.props.match.params.id,
+      data: [],
+      isLoading: true,
+    }
+  }
+
+  componentDidMount(){
+    fetch("http://localhost:8000/api/cart/list/" + localStorage.getItem("id"))
+    .then(response => response.json())
+    .then(data => this.setState({data:data, isLoading:false}));
+  }
+
+  render(){
+    if(this.state.isLoading){
+      return (<h1>Loading...</h1>)
+    }
+    var { data } = this.state;
+    var x = 0;
+    
+      data['data'].map((item2, idx) => 
+      x += Number(item2.harga)
+      )
+    var tot = x
+    return (
+      <>
+          <CRow>
+          <CCol xs="12" sm="6" md="12">
+            <CCard>
+              <CCardHeader>
+                Process Checkout
+              </CCardHeader>
+              <CCardBody>
+                  <CRow>
+                      <CCol xs="12" sm="6" md="12">
+                        <table class="table">
+                          <tr>
+                            <td>
+                              Subtotal 
+                            </td>
+                            <td>: 
+                              {tot}
+                            </td>
+                          </tr>
+                        </table>
+                      <a class="btn btn-success btn-block btn-block" href={"https://wa.me/6289680837605?text=hai%20admin%0Aid%20saya " + localStorage.getItem("id") + "%0Aberikut%20total%20harga%20saya " + tot}>Checkout</a>
+                      </CCol>
+                  </CRow>
+              </CCardBody>
+            </CCard>
+          </CCol>
+        </CRow>
         <CRow>
-        <CCol xs="12" sm="6" md="12">
-          <CCard>
-            <CCardHeader>
-              Process Checkout
-            </CCardHeader>
-            <CCardBody>
-                <CRow>
-                    
-                    <CCol xs="12" sm="6" md="12">
-                    <CButton block color="danger">Checkout</CButton>
-                    </CCol>
-                </CRow>
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
-      <CRow>
-        <CCol xs="12" sm="6" md="4">
-          <CCard>
-            <CCardHeader>
-               whiskas
-            </CCardHeader>
-            <CCardBody>
-              <img src="https://cdn.onemars.net/sites/whiskas_id_98_2/image/whiskas-sea-tuna-1_1584084321592.png" class="produk-list"/>
-            </CCardBody>
-            <CCardFooter>
-            <CButton block color="primary" to="/detail/produk">Remove</CButton>
-            </CCardFooter>
-          </CCard>
-        </CCol>
-        <CCol xs="12" sm="6" md="4">
-          <CCard>
-            <CCardHeader>
-               whiskas
-            </CCardHeader>
-            <CCardBody>
-              <img src="https://cdn.onemars.net/sites/whiskas_id_98_2/image/whiskas-sea-tuna-1_1584084321592.png" class="produk-list"/>
-            </CCardBody>
-            <CCardFooter>
-            <CButton block color="primary" to="/detail/produk">Remove</CButton>
-            </CCardFooter>
-          </CCard>
-        </CCol>
-        <CCol xs="12" sm="6" md="4">
-          <CCard>
-            <CCardHeader>
-               whiskas
-            </CCardHeader>
-            <CCardBody>
-              <img src="https://cdn.onemars.net/sites/whiskas_id_98_2/image/whiskas-sea-tuna-1_1584084321592.png" class="produk-list"/>
-            </CCardBody>
-            <CCardFooter>
-            <CButton block color="primary" to="/detail/produk">Remove</CButton>
-            </CCardFooter>
-          </CCard>
-        </CCol>
-      </CRow>
-    </>
-  )
+          {
+            data['data'].map((item, idx) => 
+            
+            <Card id={item.id_produk} idc={item._id}/>
+            )}
+        </CRow>
+      </>
+    )
+  }
 }
 
 export default Cart

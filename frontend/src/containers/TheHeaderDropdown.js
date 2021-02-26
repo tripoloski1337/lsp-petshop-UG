@@ -38,10 +38,10 @@ const TheHeaderDropdown = () => {
           <CIcon name="cil-user" className="mfe-2" />Profile
         </CDropdownItem>
         <CDropdownItem divider />
-        <CDropdownItem>
+        <button>
           <CIcon name="cil-lock-locked" className="mfe-2" />
-          Lock Account
-        </CDropdownItem>
+          Logout
+        </button>
       </CDropdownMenu>
     </CDropdown>
   )

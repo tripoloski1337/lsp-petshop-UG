@@ -48,22 +48,42 @@ const User = React.lazy(() => import('./views/users/User'));
 
 // pardon my shitty code
 // function Logout(){
+//   preventDefault()
 //   localStorage.clear();
 //   return window.location="/login";
 // }
+
+const Logout = React.lazy(() => import("./views/pages/logout"));
+
+const MprodukAdd = React.lazy(() => import("./views/admin/produk/add"));
+const MprodukEdit = React.lazy(() => import("./views/admin/produk/edit"));
+const MusersDetail = React.lazy(() => import("./views/admin/users/detail"));
+
+const Ubiodata = React.lazy(() => import("./views/user/biodata/index"));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/shop', name: 'Shop', component: Shop },
-  { path: '/detail/produk', name: 'Detail', component: DetailProd },
+  { path: '/detail/produk/:id', name: 'Detail', component: DetailProd },
   { path: '/cart', name: 'Cart', component: Cart },
   
-  { path: '/admin/produk', name: 'Manage Produk', component: Mproduk},
-  { path: '/admin/users', name: 'Manage Users', component: Musers},
-  { path: '/admin/checkout', name: 'Manage Checkout', component: Mcheckout},
-  // { path: '/x/logout', name: 'logout', component: Logout()},
 
+  // admin
+  { path: '/admin/produk', name: 'Manage Produk', component: Mproduk},
+  { path: '/admin/add/produk', name: 'Add Produk', component: MprodukAdd},
+  { path: '/admin/edit/produk/:id', name: 'Edit Produk', component: MprodukEdit},
+  
+
+  { path: '/admin/users', name: 'Manage Users', component: Musers},
+  { path: '/admin/detail/user/:id', name: 'Manage Users', component: MusersDetail},
+  
+  { path: '/admin/checkout', name: 'Manage Checkout', component: Mcheckout},
+  { path: '/x/logout', name: 'logout', component: Logout},
+
+
+  // user 
+  { path: '/user/biodata', name: 'Set biodata', component: Ubiodata},
 
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },

@@ -31,6 +31,7 @@ class Login extends React.Component {
   }
 
 
+
 handleChangePassword = (event) => {
   this.setState({
     password:event.target.value
@@ -77,6 +78,7 @@ handleSumbitAuth = (event) => {
                   error:""
               });
               localStorage.setItem("token",result.data.token);
+              localStorage.setItem("id",result.data.id);
               localStorage.setItem("username",result.data.username);
               localStorage.setItem("email",result.data.email);
               localStorage.setItem("tipe_user", result.data.tipe);
